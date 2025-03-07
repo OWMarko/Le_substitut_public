@@ -1,0 +1,29 @@
+import discord
+import os
+from discord.ext import commands
+from discord import app_commands
+from dotenv import load_dotenv
+
+load_dotenv()
+serveur_id = int(os.getenv("SERVEUR_ID"))
+
+class Com_BU(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+        
+    @app_commands.command(name="bibliothèque_universitaire", description="Information sur la BU et ses services.")
+    @app_commands.guilds(discord.Object(id=serveur_id))
+    async def aide_sociale(self, interaction: discord.Interaction):
+        aide_embed = discord.Embed(
+            title="Bibliothèque Universitaire",
+            description="La BU de Valrose est orientée vers les sciences comme les mathématiques, SVT, physique, informatique et bien plus encore. Vous pouvez emprunter plusieurs livres, utiliser les ordinateurs sur place, la connexion internet, les imprimantes, scanners à un petit prix et même emprunter un pc portable. De plus vous pouvez utiliser le site de la BU pour consulter et télécharger des ouvrages en PDF avec votre compte sésame.\n\n"
+                        "Pour plus d'information sur les imprimantes, scanner etc. : \nhttps://bu.univ-cotedazur.fr/fr/utiliser-nos-services/imprimer-photocopier-scanner\n\n"
+                        "Pour poser des questions à un bibliothécaire : \nhttps://bu.univ-cotedazur.fr/fr/utiliser-nos-services/interroger-un-bibliothecaire\n\n"
+                        "Pour chercher un livre ou ouvrage : \nhttps://bu.univ-cotedazur.fr/fr/bibliotheques/bu-sciences",
+            color=discord.Color.dark_blue()
+        )
+        await interaction.response.send_message(embed=aide_embed, ephemeral=True)
+
+async def setup(bot):
+    await bot.add_cog(Com_BU(bot))
+    await bot.tree.sync(guild=discord.Object(id=serveur_id))
