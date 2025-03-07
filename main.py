@@ -19,7 +19,7 @@ serveur_id = os.getenv("SERVEUR_ID")
 bot_token = os.getenv("BOT_TOKEN")
 
 bot = commands.Bot(command_prefix="/", intents=intents, application_id = bot_id)
-bot_statuses = cycle(["remplacer OWM","à rendre Valrose meilleur"])
+bot_statuses = cycle(["remplacer OWM","rendre Valrose meilleur"])
 serveur_id = 758327235056107612
 
 @tasks.loop(minutes=30)
